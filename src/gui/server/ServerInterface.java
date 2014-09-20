@@ -71,8 +71,7 @@ public class ServerInterface extends JFrame{
 				try {
 					serverData.saveAllData();
 				} catch (Exception ex) {
-					// XXX Auto-generated catch block
-					ex.printStackTrace();
+
 				}
 			}
 			
@@ -89,11 +88,11 @@ public class ServerInterface extends JFrame{
 				int w = getWidth();
 				int h = getHeight();
 
-				GradientPaint gp1 = new GradientPaint(0, 0, new Color(89, 190, 237), 0, 90, Color.WHITE);
+				GradientPaint gp1 = new GradientPaint(0, 0, new Color(89, 190, 237), 0, 70, Color.WHITE);
 				g2d.setPaint(gp1);
 				g2d.fillRect(0, 0, w, (h / 2) + 1);
 				
-				GradientPaint gp2 = new GradientPaint(0, sideLength - 80, Color.WHITE, 0, sideLength, new Color(89, 190, 237));
+				GradientPaint gp2 = new GradientPaint(0, sideLength - 70, Color.WHITE, 0, sideLength, new Color(89, 190, 237));
 				g2d.setPaint(gp2);
 				g2d.fillRect(0, (h / 2) - 1, w, h);
 
@@ -110,8 +109,7 @@ public class ServerInterface extends JFrame{
 				try {
 					serverData.saveAllData();
 				} catch (Exception ex) {
-					// XXX Auto-generated catch block
-					ex.printStackTrace();
+					
 				}	
 			}
 
