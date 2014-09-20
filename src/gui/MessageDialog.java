@@ -97,7 +97,6 @@ public class MessageDialog extends JDialog {
 	public void showMessage(String message, boolean isError) {
 		image.setIcon(new ImageIcon(getClass().getResource("resources/" + ((isError)? "error" : "success") + ".png")));
 		text.setText(message);
-		text.setForeground(((isError)? Color.RED : new Color(53, 169, 67)));
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);
