@@ -44,20 +44,7 @@ public class ServerData {
 		}, endDate);
 	}
 	
-	private void loadAllData() throws Exception {
-		ArrayList<String> sessionLines = readTextLines("session.txt");
-		if (!sessionLines.isEmpty()) {
-			startDate = formatter.parse(sessionLines.get(0));
-			endDate = formatter.parse(sessionLines.get(1));
-			if (sessionLines.size() > 2) {
-				winner = sessionLines.get(2);
-			} else if (endDate.compareTo(new Date()) < 0){
-				selectWinner();
-			} else {
-				createTimer();
-			}
-		}
-		
+	private void loadAllData() throws Exception {		
 		users = new ConcurrentHashMap<String, User>();
 		ArrayList<String> usersLines = readTextLines("users.txt");
 		if (!usersLines.isEmpty()) {
@@ -73,6 +60,20 @@ public class ServerData {
 			for (String line : candidatesLines) {
 				String[] candidate = line.split(",");
 				candidates.put(candidate[0], new Candidate(candidate[0], Integer.parseInt(candidate[1])));
+			}
+		}
+		
+		ArrayList<String> sessionLines = readTextLines("session.txt");
+		if (!sessionLines.isEmpty()) {
+			startDate = formatter.parse(sessionLines.get(0));
+			endDate = formatter.parse(sessionLines.get(1));
+			if (sessionLines.size() > 2) {
+				winner = sessionLines.get(2);
+				System.out.println("-" + winner + "-");
+			} else if (endDate.compareTo(new Date()) < 0){
+				selectWinner();
+			} else {
+				createTimer();
 			}
 		}
 	}
