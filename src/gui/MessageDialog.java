@@ -52,13 +52,13 @@ public class MessageDialog extends JDialog {
 			
 		});
 		
-		JPanel messagePanel = new JPanel(new FlowLayout(0, 10, FlowLayout.LEFT));
+		JPanel messagePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
 		messagePanel.add(image);
 		messagePanel.add(text);
-		messagePanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 5, 0));
 		messagePanel.setOpaque(false);
 		
-		JPanel okPanel = new JPanel();
+		JPanel okPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		okPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
 		okPanel.add(ok);
 		okPanel.setOpaque(false);
 		
@@ -73,7 +73,7 @@ public class MessageDialog extends JDialog {
         	    int w = getWidth();
         	    int h = getHeight();
         	    
-        	    GradientPaint gp1 = new GradientPaint(0, 0, Color.WHITE, w, h, new Color(130, 207, 244));
+        	    GradientPaint gp1 = new GradientPaint(0, 0, Color.WHITE, w, h, new Color(191, 230, 249));
         	    g2d.setPaint(gp1);
         	    g2d.fillRect(0, 0, w, h);
         	 
