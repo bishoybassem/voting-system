@@ -17,7 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 
 @SuppressWarnings("serial")
 public class NewSessionPanel extends JPanel {
@@ -74,23 +74,21 @@ public class NewSessionPanel extends JPanel {
 		p1.add(dataPanel1);
 		p1.add(dataPanel2);
 		p1.add(dataPanel3);
+		p1.setBorder(new LineBorder(Color.BLACK));
 		
 		final JTextArea candidatesTextArea = new JTextArea();
-		candidatesTextArea.setBorder(BorderFactory.createEmptyBorder(5, 7, 5, 5));
-		
-		Border b = BorderFactory.createMatteBorder(1, 1, 1, 0, new Color(89, 190, 237));
+		candidatesTextArea.setBorder(BorderFactory.createEmptyBorder(10, 20, 0, 0));
 		
 		JScrollPane scrollPane = new JScrollPane(candidatesTextArea); 
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(0, 40, 0, 20), b));
+		scrollPane.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(0, 20, 0, 20), new LineBorder(new Color(191, 230, 249))));
 		scrollPane.setOpaque(false);
-		scrollPane.getViewport().setOpaque(false);
-		
+
 		JLabel candidates = new JLabel("Candidates");
 		candidates.setForeground(Color.RED);
 		
-		JPanel p2 = new JPanel(new FlowLayout(FlowLayout.LEFT, 40, 15));
+		JPanel p2 = new JPanel(new FlowLayout(FlowLayout.LEFT, 40, 10));
 		p2.setOpaque(false);
 		p2.add(candidates);
 		

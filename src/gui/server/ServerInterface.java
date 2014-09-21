@@ -38,12 +38,12 @@ public class ServerInterface extends JFrame{
 	public MessageDialog messageDialog;
 	
 	public ServerInterface() throws Exception {
-		super("Server Voting System");
+		super("Voting System - Server");
 
 		try {
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 		} catch (Exception e) {
-			e.printStackTrace();
+
 		}
 		UIManager.put("Label.font", new Font("Consolas", Font.PLAIN, 18));
 		UIManager.put("Button.font", new Font("Consolas", Font.PLAIN, 18));
@@ -88,13 +88,14 @@ public class ServerInterface extends JFrame{
 				int w = getWidth();
 				int h = getHeight();
 
-				GradientPaint gp1 = new GradientPaint(0, 0, new Color(89, 190, 237), 0, 70, Color.WHITE);
-				g2d.setPaint(gp1);
-				g2d.fillRect(0, 0, w, (h / 2) + 1);
+				GradientPaint gp1 = new GradientPaint(0, 0, Color.WHITE, 0, h / 2, new Color(191, 230, 249));
+				GradientPaint gp2 = new GradientPaint(0, h / 2, new Color(191, 230, 249), 0, h, Color.WHITE);
 				
-				GradientPaint gp2 = new GradientPaint(0, sideLength - 70, Color.WHITE, 0, sideLength, new Color(89, 190, 237));
+				g2d.setPaint(gp1);
+				g2d.fillRect(0, 0, w, h / 2);
+								
 				g2d.setPaint(gp2);
-				g2d.fillRect(0, (h / 2) - 1, w, h);
+				g2d.fillRect(0, h / 2, w, h);
 
 				setOpaque(false);
 				super.paintComponent(g);

@@ -18,7 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 
 import engine.Candidate;
 
@@ -91,7 +91,7 @@ public class SessionPanel extends JPanel {
 		p1.add(dataPanel3);
 		
 		ArrayList<Candidate> candidates = new ArrayList<Candidate>(serverInterface.serverData.getCandidates().values());
-		int length = 8;
+		int length = 10;
 		for (Candidate candidate : candidates) {
 			int x = (candidate.getVotes() + "").length();
 			if (length < x) {
@@ -105,22 +105,24 @@ public class SessionPanel extends JPanel {
 		JLabel candidateLabel = new JLabel("Candidates");
 		candidateLabel.setForeground(Color.RED);
 	
-		JPanel columnHeadersPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 40, 15));
+		JPanel columnHeadersPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 40, 10));
 		columnHeadersPanel.setOpaque(false);
 		columnHeadersPanel.add(votesLabel);
 		columnHeadersPanel.add(candidateLabel);
 		
 		JPanel candidatesPanel = new JPanel(new GridLayout(candidates.size(), 1, 0, 0));
 		candidatesPanel.setOpaque(false);
+		candidatesPanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
 		
 		for (Candidate candidate : candidates) {
 			votesLabel = new JLabel(String.format("%-" + length + "s", candidate.getVotes()));
 			candidateLabel = new JLabel(candidate.getName());
 
-			JPanel candidatePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 0));
+			JPanel candidatePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 5));
 			candidatePanel.setOpaque(false);
+			candidatePanel.add(Box.createRigidArea(new Dimension(20, 0)));
 			candidatePanel.add(votesLabel);
-			candidatePanel.add(Box.createRigidArea(new Dimension(0, 0)));
+			candidatePanel.add(Box.createRigidArea(new Dimension(40, 0)));
 			candidatePanel.add(candidateLabel);
 			
 			candidatesPanel.add(candidatePanel);
@@ -130,8 +132,6 @@ public class SessionPanel extends JPanel {
 		p2.setOpaque(false);
 		p2.add(candidatesPanel, BorderLayout.NORTH);
 		
-		Border b = BorderFactory.createMatteBorder(1, 1, 1, 0, new Color(89, 190, 237));
-		
 		scrollPane = new JScrollPane(p2); 
 		scrollPane.getViewport().setViewPosition(viewPoint);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -139,16 +139,15 @@ public class SessionPanel extends JPanel {
 		scrollPane.setWheelScrollingEnabled(true);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(10);
 		scrollPane.setOpaque(false);
-		scrollPane.getViewport().setOpaque(false);
-		//scrollPane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 20));
-		scrollPane.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(0, 20, 0, 20), b));
+		scrollPane.getViewport().setBackground(Color.WHITE);
+		scrollPane.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(0, 20, 0, 20), new LineBorder(new Color(191, 230, 249))));
 		
 		JPanel p3 = new JPanel(new BorderLayout(0, 0));
 		p3.setOpaque(false);
 		p3.add(columnHeadersPanel, BorderLayout.NORTH);
 		p3.add(scrollPane);
 		
-		JPanel p4 = new JPanel(new BorderLayout());
+		JPanel p4 = new JPanel(new BorderLayout(0, 0));
 		p4.setOpaque(false);
 		p4.add(p1, BorderLayout.NORTH);
 		p4.add(p3);
