@@ -34,8 +34,8 @@ public class ServerInterface extends JFrame{
 	private Timer refreshTimer;
 	private Timer saveTimer;
 
-	public int sideLength;
-	public MessageDialog messageDialog;
+	public final int sideLength;
+	public final MessageDialog messageDialog;
 	
 	public ServerInterface() throws Exception {
 		super("Voting System - Server");

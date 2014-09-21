@@ -74,7 +74,6 @@ public class NewSessionPanel extends JPanel {
 		p1.add(dataPanel1);
 		p1.add(dataPanel2);
 		p1.add(dataPanel3);
-		p1.setBorder(new LineBorder(Color.BLACK));
 		
 		final JTextArea candidatesTextArea = new JTextArea();
 		candidatesTextArea.setBorder(BorderFactory.createEmptyBorder(10, 20, 0, 0));
@@ -82,7 +81,7 @@ public class NewSessionPanel extends JPanel {
 		JScrollPane scrollPane = new JScrollPane(candidatesTextArea); 
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(0, 20, 0, 20), new LineBorder(new Color(191, 230, 249))));
+		scrollPane.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(0, 20, 0, 20), new LineBorder(new Color(191, 230, 249).darker())));
 		scrollPane.setOpaque(false);
 
 		JLabel candidates = new JLabel("Candidates");

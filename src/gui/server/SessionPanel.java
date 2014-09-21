@@ -140,7 +140,7 @@ public class SessionPanel extends JPanel {
 		scrollPane.getVerticalScrollBar().setUnitIncrement(10);
 		scrollPane.setOpaque(false);
 		scrollPane.getViewport().setBackground(Color.WHITE);
-		scrollPane.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(0, 20, 0, 20), new LineBorder(new Color(191, 230, 249))));
+		scrollPane.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(0, 20, 0, 20), new LineBorder(new Color(191, 230, 249).darker())));
 		
 		JPanel p3 = new JPanel(new BorderLayout(0, 0));
 		p3.setOpaque(false);
