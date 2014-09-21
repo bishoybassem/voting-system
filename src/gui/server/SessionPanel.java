@@ -31,7 +31,7 @@ public class SessionPanel extends JPanel {
 	public SessionPanel(ServerInterface serverInterface, Point viewPoint) {
 		mainFrame = serverInterface;
 		
-		setLayout(new BorderLayout());
+		setLayout(new BorderLayout(0, 0));
 		setOpaque(false);
 		
 		JButton newSession = new JButton("New session");
@@ -115,7 +115,7 @@ public class SessionPanel extends JPanel {
 		candidatesPanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
 		
 		for (Candidate candidate : candidates) {
-			votesLabel = new JLabel(String.format("%-" + length + "s", candidate.getVotes()));
+			votesLabel = new JLabel(String.format("%-" + length + "d", candidate.getVotes()));
 			candidateLabel = new JLabel(candidate.getName());
 
 			JPanel candidatePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 5));

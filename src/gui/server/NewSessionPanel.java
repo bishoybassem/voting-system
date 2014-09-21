@@ -27,7 +27,7 @@ public class NewSessionPanel extends JPanel {
 	public NewSessionPanel(ServerInterface serverInterface) {
 		mainFrame = serverInterface;
 		
-		setLayout(new BorderLayout());
+		setLayout(new BorderLayout(0, 0));
 		setOpaque(false);
 		
 		JLabel newSession = new JLabel("New session");

@@ -74,10 +74,10 @@ public class DatePanel extends JPanel {
 			calendar.add(Calendar.HOUR, 1);
 			fields[0].setText(calendar.get(Calendar.DAY_OF_MONTH) + "");
 			fields[1].setText(calendar.get(Calendar.YEAR) + "");
-			fields[2].setText(String.format("%02d", calendar.get(Calendar.HOUR)));
+			fields[2].setText(String.format("%02d", calendar.get(Calendar.HOUR) == 0 ? 12 : calendar.get(Calendar.HOUR)));
 			fields[3].setText(String.format("%02d", calendar.get(Calendar.MINUTE)));
 			comboBoxes.get(0).setSelectedIndex(calendar.get(Calendar.MONTH));
-			comboBoxes.get(1).setSelectedIndex(calendar.get(Calendar.AM));
+			comboBoxes.get(1).setSelectedIndex(calendar.get(Calendar.AM_PM));
 		}
 	}
 	
