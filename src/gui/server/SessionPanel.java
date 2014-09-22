@@ -172,11 +172,14 @@ public class SessionPanel extends JPanel {
 	}
 	
 	public Point getViewPoint() {
-		return scrollPane.getViewport().getViewPosition();
+		if (mainFrame.serverData.isSessionLoaded())
+			return scrollPane.getViewport().getViewPosition();
+
+		return new Point(0, 0);
 	}
 	
 	public Dimension getPreferredSize() {
-		return new Dimension(mainFrame.sideLength, mainFrame.sideLength);
+		return new Dimension(mainFrame.windowSize, mainFrame.windowSize);
 	}
 	
 }

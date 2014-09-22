@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -13,7 +14,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.net.ServerSocket;
+import java.util.Arrays;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -34,7 +37,7 @@ public class ServerInterface extends JFrame{
 	private Timer refreshTimer;
 	private Timer saveTimer;
 
-	public final int sideLength;
+	public final int windowSize;
 	public final MessageDialog messageDialog;
 	
 	public ServerInterface() throws Exception {
@@ -52,7 +55,7 @@ public class ServerInterface extends JFrame{
 		UIManager.put("ComboBox.font", new Font("Consolas", Font.PLAIN, 18));
 		
 		serverData = new ServerData();
-		sideLength = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 200);
+		windowSize = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 200);
 		messageDialog = new MessageDialog(this);
 
 		refreshTimer = new Timer(5000, new ActionListener() {
@@ -120,7 +123,11 @@ public class ServerInterface extends JFrame{
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		ImageIcon icon1 = new ImageIcon(getClass().getClassLoader().getResource("gui/resources/hand1.png"));
+		ImageIcon icon2 = new ImageIcon(getClass().getClassLoader().getResource("gui/resources/hand2.png"));
+		
 		switchToSessionPanel();
+		setIconImages(Arrays.asList(new Image[]{icon1.getImage(), icon2.getImage()}));
 		setLocationRelativeTo(null);
 		
 		refreshTimer.start();

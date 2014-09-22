@@ -31,7 +31,7 @@ public class ClientInterface extends JFrame{
 	private JPanel mainPanel;
 	private Timer refreshTimer;
 	
-	public final int sideLength;
+	public final int windowSize;
 	public final MessageDialog messageDialog;
 	
 	public ClientInterface() {
@@ -50,7 +50,7 @@ public class ClientInterface extends JFrame{
 		
 		messageDialog = new MessageDialog(this);
 		
-		sideLength = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 200);
+		windowSize = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 200);
 		
 		setResizable(false);
 		

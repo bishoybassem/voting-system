@@ -105,7 +105,7 @@ public class LoginPanel extends JPanel{
 	}
 	
 	public Dimension getPreferredSize() {
-		return new Dimension(mainFrame.sideLength, mainFrame.sideLength);
+		return new Dimension(mainFrame.windowSize, mainFrame.windowSize);
 	}
 	
 }
