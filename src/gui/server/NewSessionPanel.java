@@ -52,8 +52,11 @@ public class NewSessionPanel extends JPanel {
 
 		add(headerPanel, BorderLayout.NORTH);
 		
-		final DatePanel startDatePanel = new DatePanel(true);
-		final DatePanel endDatePanel = new DatePanel(true);
+		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.HOUR, 1);
+		final DatePanel startDatePanel = new DatePanel(calendar);
+		calendar.add(Calendar.HOUR, 1);
+		final DatePanel endDatePanel = new DatePanel(calendar);
 		
 		JPanel dataPanel1 = new JPanel(new GridLayout(2, 1, 0, 5));
 		dataPanel1.setOpaque(false);

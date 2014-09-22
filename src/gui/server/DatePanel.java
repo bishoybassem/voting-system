@@ -38,8 +38,12 @@ public class DatePanel extends JPanel {
 			}
 		}
 	}
+
+	public DatePanel() {
+		this(null);
+	}
 	
-	public DatePanel(boolean initialize) {
+	public DatePanel(Calendar calendar) {
 		fields = new JTextField[4];
 		for (int i = 0; i < fields.length; i++) {
 			fields[i] = new JTextField((i == 1)? 4 : 2);
@@ -69,9 +73,7 @@ public class DatePanel extends JPanel {
 		add(comboBoxes.get(1));
 		setOpaque(false);
 		
-		if (initialize) {
-			Calendar calendar = Calendar.getInstance();
-			calendar.add(Calendar.HOUR, 1);
+		if (calendar != null) {
 			fields[0].setText(calendar.get(Calendar.DAY_OF_MONTH) + "");
 			fields[1].setText(calendar.get(Calendar.YEAR) + "");
 			fields[2].setText(String.format("%02d", calendar.get(Calendar.HOUR) == 0 ? 12 : calendar.get(Calendar.HOUR)));
