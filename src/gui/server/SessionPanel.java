@@ -35,6 +35,7 @@ public class SessionPanel extends JPanel {
 		setOpaque(false);
 		
 		JButton newSession = new JButton("New session");
+		newSession.setFocusable(false);
 		newSession.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
@@ -42,8 +43,7 @@ public class SessionPanel extends JPanel {
 			}
 			
 		});
-		newSession.setFocusable(false);
-		
+
 		if (mainFrame.serverData.isSessionLoaded()) {
 			newSession.setEnabled(mainFrame.serverData.isSessionFinished());
 		} else {
@@ -164,9 +164,20 @@ public class SessionPanel extends JPanel {
 			
 		});
 		
+		JButton about = new JButton("About");
+		about.setFocusable(false);
+		about.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				mainFrame.messageDialog.showAbout();
+			}
+			
+		});
+		
 		JPanel p5 = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
 		p5.setOpaque(false);
 		p5.add(refresh);
+		p5.add(about);
 		
 		add(p5, BorderLayout.SOUTH);
 	}

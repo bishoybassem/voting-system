@@ -35,6 +35,7 @@ public class NewSessionPanel extends JPanel {
 		newSession.setFont(new Font("Consolas", Font.PLAIN, 26));
 		
 		JButton cancel = new JButton("Cancel");
+		cancel.setFocusable(false);
 		cancel.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
@@ -42,7 +43,6 @@ public class NewSessionPanel extends JPanel {
 			}
 			
 		});
-		cancel.setFocusable(false);
 		
 		JPanel headerPanel = new JPanel(new BorderLayout());
 		headerPanel.setOpaque(false);
@@ -148,7 +148,7 @@ public class NewSessionPanel extends JPanel {
 			}
 			
 		});
-		
+
 		JPanel p5 = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
 		p5.setOpaque(false);
 		p5.add(create);

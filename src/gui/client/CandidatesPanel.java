@@ -181,9 +181,20 @@ public class CandidatesPanel extends JPanel {
 			
 		});
 		
+		JButton about = new JButton("About");
+		about.setFocusable(false);
+		about.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				mainFrame.messageDialog.showAbout();
+			}
+			
+		});
+		
 		JPanel p5 = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
 		p5.setOpaque(false);
 		p5.add(refresh);
+		p5.add(about);
 		
 		add(p5, BorderLayout.SOUTH);
 	}
