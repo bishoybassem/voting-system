@@ -30,14 +30,17 @@ public class ClientConnection {
 		status = Status.values()[Integer.parseInt(send("Login:" + username + "-" + password))];
 		if (status != Status.NOT_REGISTERED && status != Status.NO_SESSION) {
 			user = new User(username, password);
-			refresh();
+			retrieveCandidates();
+			retrieveStartDate();
+			retrieveEndDate();
+			retrieveVote();
+			retrieveWinner();
 		}
 	}
-	
+		
 	public void voteFor(String vote) throws Exception {
 		if (status == Status.CAN_VOTE){
 			send("Vote:" + user.getUsername() + "-" + vote);
-			refresh();
 		}
 	}
 	
@@ -87,11 +90,9 @@ public class ClientConnection {
 	}
 		
 	public void refresh() throws Exception {
-		retrieveCandidates();
-		retrieveStartDate();
-		retrieveEndDate();
-		retrieveVote();
-		retrieveWinner();
+		if (user != null) {
+			login(user.getUsername(), user.getPassword());
+		}
 	}
 	
 	public void closeConnection() throws Exception {
