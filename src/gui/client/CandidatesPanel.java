@@ -53,7 +53,7 @@ public class CandidatesPanel extends JPanel {
 				try {
 					mainFrame.connection.closeConnection();
 				} catch (Exception ex) {
-					ex.printStackTrace();
+
 				}
 				mainFrame.connection = null;
 				mainFrame.switchToLoginPanel();

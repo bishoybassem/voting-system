@@ -193,12 +193,6 @@ public class ServerData {
 			}
 			newSession(newCandidates, endDate, new Date(2 * endDate.getTime() - startDate.getTime()));
 		}
-		
-		try {
-			saveAllData();
-		} catch (Exception ex) {
-			
-		}
 	}
 	
 	public void newSession(String candidates, Date startDate, Date endDate) {
@@ -219,11 +213,6 @@ public class ServerData {
 		for (User u : users.values()) {
 			u.setVote(null);
 		}
-		try {
-			saveAllData();
-		} catch (Exception ex) {
-			
-		}
 	}
 		
 	public boolean isSessionFinished() {
@@ -243,7 +232,7 @@ public class ServerData {
 				lines.add(sc.nextLine());
 			}
 		} catch (Exception ex) {
-			//ex.printStackTrace();
+
 		} finally {
 			if (sc != null) {
 				sc.close();

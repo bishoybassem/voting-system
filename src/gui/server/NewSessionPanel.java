@@ -9,6 +9,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.BorderFactory;
@@ -116,7 +117,10 @@ public class NewSessionPanel extends JPanel {
 					mainFrame.messageDialog.showMessage("Invalid start date!", true);
 					return;
 				}
-				if (startDate.compareTo(new Date()) < 0) {
+
+				Calendar c = Calendar.getInstance();
+				c.add(Calendar.MINUTE, -1);
+				if (startDate.before(c.getTime())) {
 					mainFrame.messageDialog.showMessage("Invalid start date!", true);
 					return;
 				}

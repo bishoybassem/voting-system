@@ -133,7 +133,6 @@ public class ClientInterface extends JFrame{
 		mainPanel.removeAll();
 		mainPanel.add(candidatesPanel);
 		pack();
-		//mainPanel.requestFocusInWindow();
 	}
 	
 	public void refreshCandidatesPanel() {

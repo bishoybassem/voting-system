@@ -49,9 +49,6 @@ public class ClientConnection {
 	}
 		
 	private String send(String text) throws Exception {
-		if (text.isEmpty())
-			return "";
-		
 		outToServer.println(text);
 		return inFromServer.readLine();
 	}
