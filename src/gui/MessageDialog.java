@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Scanner;
 
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
@@ -23,8 +24,17 @@ import javax.swing.KeyStroke;
 @SuppressWarnings("serial")
 public class MessageDialog extends JDialog {
 	
+	public static final int ERROR = 0;
+	public static final int SUCCESS = 1;
+	
 	private JTextArea text;
 	private JLabel image;
+	
+	private static final String aboutText;
+	
+	static {
+		aboutText = readTextFile("resources/about.txt");
+	}
 	
 	public MessageDialog(JFrame main) {
 		super(main, "Message", true);
@@ -94,12 +104,38 @@ public class MessageDialog extends JDialog {
 		setLocationRelativeTo(null);
 	}
 	
+	public void showAbout() {
+		image.setIcon(new ImageIcon(getClass().getResource("resources/hand2.png")));
+		text.setText(aboutText);
+		pack();
+		setLocationRelativeTo(null);
+		setVisible(true);
+	}
+	
 	public void showMessage(String message, boolean isError) {
-		image.setIcon(new ImageIcon(getClass().getResource("resources/" + ((isError)? "error" : "success") + ".png")));
+		image.setIcon(new ImageIcon(getClass().getResource("resources/" + (isError? "error" : "success") + ".png")));
 		text.setText(message);
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);
+	}
+	
+	public static String readTextFile(String path) {
+		String text = "";
+		Scanner sc = null;
+		try {
+			sc = new Scanner(MessageDialog.class.getResourceAsStream(path));
+			while (sc.hasNext()){
+				text += sc.nextLine() + (sc.hasNext() ? "\n" : "");
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (sc != null){
+				sc.close();
+			}	
+		}
+		return text;
 	}
 		
 }
