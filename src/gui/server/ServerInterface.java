@@ -113,7 +113,7 @@ public class ServerInterface extends JFrame{
 				try {
 					serverData.saveAllData();
 				} catch (Exception ex) {
-					
+
 				}	
 			}
 
