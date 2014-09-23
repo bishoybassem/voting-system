@@ -4,6 +4,10 @@ An e-voting Java application, consisting of a server application for creating vo
 
 ### Features
 
+* The ability to specify the start time, end time and list of candidates (one per line) for a new session.
+* Automatically starts a new session for tied candidates.
+* Enables login, register, candidate selection and session tracking functions for the clients. 
+
 ### Download
 
 ### Screenshots
