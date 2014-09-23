@@ -124,7 +124,7 @@ public class NewSessionPanel extends JPanel {
 				Calendar c = Calendar.getInstance();
 				c.add(Calendar.MINUTE, -1);
 				if (startDate.before(c.getTime())) {
-					mainFrame.messageDialog.showMessage("Invalid start date!", true);
+					mainFrame.messageDialog.showMessage("Invalid start date\nIt must be after the current date!", true);
 					return;
 				}
 				Date endDate = null;
@@ -135,7 +135,7 @@ public class NewSessionPanel extends JPanel {
 					return;
 				}
 				if (endDate.compareTo(startDate) <= 0) {
-					mainFrame.messageDialog.showMessage("Invalid end date!", true);
+					mainFrame.messageDialog.showMessage("Invalid end date\nIt must be after the start date!", true);
 					return;
 				}
 				String candidates = candidatesTextArea.getText();
