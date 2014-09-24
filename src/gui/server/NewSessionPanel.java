@@ -39,7 +39,7 @@ public class NewSessionPanel extends JPanel {
 		cancel.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
-				mainFrame.switchToSessionPanel();
+				mainFrame.switchTo(new SessionPanel(mainFrame));
 			}
 			
 		});
@@ -120,10 +120,7 @@ public class NewSessionPanel extends JPanel {
 					mainFrame.messageDialog.showMessage("Invalid start date!", true);
 					return;
 				}
-
-				Calendar c = Calendar.getInstance();
-				c.add(Calendar.MINUTE, -1);
-				if (startDate.before(c.getTime())) {
+				if (startDate.before(new Date())) {
 					mainFrame.messageDialog.showMessage("Invalid start date\nIt must be after the current date!", true);
 					return;
 				}
@@ -144,7 +141,7 @@ public class NewSessionPanel extends JPanel {
 					return;
 				}
 				mainFrame.serverData.newSession(candidates, startDate, endDate);
-				mainFrame.switchToSessionPanel();
+				mainFrame.switchTo(new SessionPanel(mainFrame));
 			}
 			
 		});

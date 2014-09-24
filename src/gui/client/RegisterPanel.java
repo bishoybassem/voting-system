@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.UnknownHostException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -24,7 +25,7 @@ public class RegisterPanel extends JPanel{
 	
 	private ClientInterface mainFrame;
 	
-	public RegisterPanel(ClientInterface clientInterface) {
+	public RegisterPanel(ClientInterface clientInterface, final JTextField username, final JTextField serverIP) {
 		mainFrame = clientInterface;
 		
 		setLayout(new GridBagLayout());
@@ -41,14 +42,15 @@ public class RegisterPanel extends JPanel{
 		JLabel passwordLabel = new JLabel("Password");
 		passwordLabel.setPreferredSize(confirmLabel.getPreferredSize());
 		
-		final JTextField username = new JTextField(20);
+		JLabel serverIPLabel = new JLabel("Server IP");
+		serverIPLabel.setPreferredSize(confirmLabel.getPreferredSize());
 		
 		final JPasswordField password = new JPasswordField(20);
 		password.setEchoChar((char) 8226);
 		
 		final JPasswordField confirm = new JPasswordField(20);
 		confirm.setEchoChar((char) 8226);
-		
+
 		JButton register = new JButton("Register");
 		register.setFocusable(false);
 		register.addActionListener(new ActionListener() {
@@ -69,13 +71,15 @@ public class RegisterPanel extends JPanel{
 						mainFrame.messageDialog.showMessage("Passwords do not match!", true);
 						return;
 					}
-					mainFrame.connection = new ClientConnection();
+					mainFrame.connection = new ClientConnection(serverIP.getText());
 					if (!mainFrame.connection.register(username.getText(), pass)) {
-						mainFrame.messageDialog.showMessage("Username is already taken!", true);
+						mainFrame.messageDialog.showMessage("This username/machine is already registered!", true);
 					} else {
 						mainFrame.messageDialog.showMessage("You have been successfully registered!", false);
-						mainFrame.switchToLoginPanel();
+						mainFrame.switchTo(new LoginPanel(mainFrame, username, serverIP));
 					}
+				} catch (UnknownHostException ex) {
+					mainFrame.messageDialog.showMessage("The IP address of the server cannot be resolved!", true);
 				} catch (Exception ex) {
 					mainFrame.messageDialog.showMessage("Couldn't connect to server!", true);
 				}
@@ -88,7 +92,7 @@ public class RegisterPanel extends JPanel{
 		back.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
-				mainFrame.switchToLoginPanel();
+				mainFrame.switchTo(new LoginPanel(mainFrame, username, serverIP));
 			}
 			
 		});
@@ -108,16 +112,22 @@ public class RegisterPanel extends JPanel{
 		confirmPasswordPanel.add(confirm);
 		confirmPasswordPanel.setOpaque(false);
 		
+		JPanel serverIPPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
+		serverIPPanel.add(serverIPLabel);
+		serverIPPanel.add(serverIP);
+		serverIPPanel.setOpaque(false);
+		
 		JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
 		buttonsPanel.add(register);
 		buttonsPanel.add(back);
 		buttonsPanel.setOpaque(false);
 		
-		JPanel registerPanel = new JPanel(new GridLayout(5, 1, 0, 5));
+		JPanel registerPanel = new JPanel(new GridLayout(6, 1, 0, 5));
 		registerPanel.add(registerLabel);
 		registerPanel.add(usernamePanel);
 		registerPanel.add(passwordPanel);
 		registerPanel.add(confirmPasswordPanel);
+		registerPanel.add(serverIPPanel);
 		registerPanel.add(buttonsPanel);
 		registerPanel.setBorder(BorderFactory.createCompoundBorder(new LineBorder(new Color(191, 230, 249).darker()), BorderFactory.createEmptyBorder(10, 10, 10, 10)));	
 		registerPanel.setOpaque(false);

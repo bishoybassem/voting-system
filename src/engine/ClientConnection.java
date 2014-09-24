@@ -19,9 +19,9 @@ public class ClientConnection {
 	private String winner;
 	private Date startDate;
 	private Date endDate;
-		
-	public ClientConnection() throws Exception {
-		socket = new Socket("localhost", 6000);
+	
+	public ClientConnection(String serverIP) throws Exception {
+		socket = new Socket(serverIP, ServerConnection.PORT);
 		outToServer = new PrintWriter(socket.getOutputStream(), true);
 		inFromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 	}
@@ -122,5 +122,5 @@ public class ClientConnection {
 	public String getEndDate() {
 		return ServerData.formatter.format(endDate);
 	}
-	
+		
 }

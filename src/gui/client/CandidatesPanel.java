@@ -56,7 +56,7 @@ public class CandidatesPanel extends JPanel {
 
 				}
 				mainFrame.connection = null;
-				mainFrame.switchToLoginPanel();
+				mainFrame.switchTo(new LoginPanel(mainFrame));
 			}
 			
 		});

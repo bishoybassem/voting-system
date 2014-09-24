@@ -30,8 +30,6 @@ import gui.MessageDialog;
 public class ServerInterface extends JFrame{
 
 	public ServerData serverData;
-	private boolean isSessionPanel;
-	private SessionPanel sessionPanel;
 	
 	private JPanel mainPanel;
 	private Timer refreshTimer;
@@ -61,9 +59,7 @@ public class ServerInterface extends JFrame{
 		refreshTimer = new Timer(5000, new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
-				if (isSessionPanel) {
-					switchToSessionPanel();
-				}
+				refreshSessionPanel();
 			}
 			
 		});
@@ -126,7 +122,7 @@ public class ServerInterface extends JFrame{
 		ImageIcon icon1 = new ImageIcon(getClass().getClassLoader().getResource("gui/resources/hand1.png"));
 		ImageIcon icon2 = new ImageIcon(getClass().getClassLoader().getResource("gui/resources/hand2.png"));
 		
-		switchToSessionPanel();
+		switchTo(new SessionPanel(this));
 		setIconImages(Arrays.asList(new Image[]{icon1.getImage(), icon2.getImage()}));
 		setLocationRelativeTo(null);
 		
@@ -134,28 +130,25 @@ public class ServerInterface extends JFrame{
 		saveTimer.start();
 	}
 	
-	public void switchToSessionPanel() {
-		isSessionPanel = true;
-		sessionPanel = new SessionPanel(this, (sessionPanel == null)? new Point(0, 0) : sessionPanel.getViewPoint());
-		mainPanel.removeAll();
-		mainPanel.add(sessionPanel);
-		pack();
-		mainPanel.requestFocusInWindow();
+	public void refreshSessionPanel() {
+		if (!(mainPanel.getComponent(0) instanceof SessionPanel))
+			return;
+		
+		Point viewPoint = ((SessionPanel)mainPanel.getComponent(0)).getViewPoint();
+		switchTo(new SessionPanel(this, viewPoint));
 	}
 	
-	public void switchToNewSessionPanel() {
-		isSessionPanel = false;
-		sessionPanel = null;
+	public void switchTo(JPanel panel) {
 		mainPanel.removeAll();
-		mainPanel.add(new NewSessionPanel(this));
+		mainPanel.add(panel);
 		pack();
 	}
-	
+		
 	@SuppressWarnings("resource")
 	public static void main(String[] args) throws Exception {
 		ServerInterface serverInterface = new ServerInterface();
 		serverInterface.setVisible(true);
-		ServerSocket serverSocket = new ServerSocket(6000);
+		ServerSocket serverSocket = new ServerSocket(ServerConnection.PORT);
 		while (true) {
 			new Thread(new ServerConnection(serverSocket.accept(), serverInterface.serverData)).start();
 		}

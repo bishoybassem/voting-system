@@ -10,6 +10,7 @@ import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.InetAddress;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -28,6 +29,10 @@ public class SessionPanel extends JPanel {
 	private ServerInterface mainFrame;
 	private JScrollPane scrollPane;
 	
+	public SessionPanel(ServerInterface serverInterface) {
+		this(serverInterface, new Point(0, 0));
+	}
+	
 	public SessionPanel(ServerInterface serverInterface, Point viewPoint) {
 		mainFrame = serverInterface;
 		
@@ -39,7 +44,7 @@ public class SessionPanel extends JPanel {
 		newSession.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
-				mainFrame.switchToNewSessionPanel();
+				mainFrame.switchTo(new NewSessionPanel(mainFrame));
 			}
 			
 		});
@@ -66,20 +71,27 @@ public class SessionPanel extends JPanel {
 		JLabel winner = new JLabel((serverInterface.serverData.getWinner() == null)? "-" : serverInterface.serverData.getWinner());
 		winner.setForeground(Color.GREEN.darker());
 
-		JPanel dataPanel1 = new JPanel(new GridLayout(3, 1, 0, 5));
+		JPanel dataPanel1 = new JPanel(new GridLayout(4, 1, 0, 5));
 		dataPanel1.setOpaque(false);
+		dataPanel1.add(new JLabel("Server IP"));
 		dataPanel1.add(new JLabel("Start date"));
 		dataPanel1.add(new JLabel("End date"));
 		dataPanel1.add(new JLabel("Winner"));
 		
-		JPanel dataPanel2 = new JPanel(new GridLayout(3, 1, 0, 5));
+		JPanel dataPanel2 = new JPanel(new GridLayout(4, 1, 0, 5));
 		dataPanel2.setOpaque(false);
 		dataPanel2.add(new JLabel(":"));
 		dataPanel2.add(new JLabel(":"));
 		dataPanel2.add(new JLabel(":"));
+		dataPanel2.add(new JLabel(":"));
 		
-		JPanel dataPanel3 = new JPanel(new GridLayout(3, 1, 0, 5));
+		JPanel dataPanel3 = new JPanel(new GridLayout(4, 1, 0, 5));
 		dataPanel3.setOpaque(false);
+		try {
+			dataPanel3.add(new JLabel(InetAddress.getLocalHost().getHostAddress()));
+		} catch (Exception e) {
+			dataPanel3.add(new JLabel("-"));
+		}
 		dataPanel3.add(new JLabel(serverInterface.serverData.getStartDate()));
 		dataPanel3.add(new JLabel(serverInterface.serverData.getEndDate()));
 		dataPanel3.add(winner);
@@ -159,7 +171,7 @@ public class SessionPanel extends JPanel {
 		refresh.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
-				mainFrame.switchToSessionPanel();
+				mainFrame.refreshSessionPanel();
 			}
 			
 		});

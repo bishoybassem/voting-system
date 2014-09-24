@@ -6,8 +6,10 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.UnknownHostException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -26,6 +28,10 @@ public class LoginPanel extends JPanel{
 	private ClientInterface mainFrame;
 	
 	public LoginPanel(ClientInterface clientInterface) {
+		this(clientInterface, new JTextField(20), new JTextField("localhost", 20));
+	}
+	
+	public LoginPanel(ClientInterface clientInterface, final JTextField username, final JTextField serverIP) {
 		mainFrame = clientInterface;
 		
 		setLayout(new GridBagLayout());
@@ -34,7 +40,13 @@ public class LoginPanel extends JPanel{
 		JLabel loginLabel = new JLabel("Login");
 		loginLabel.setFont(new Font("Consolas", Font.PLAIN, 26));
 
-		final JTextField username = new JTextField(20);
+		JLabel serverIPLabel = new JLabel("Server IP");
+		
+		JLabel usernameLabel = new JLabel("Username");
+		usernameLabel.setPreferredSize(serverIPLabel.getPreferredSize());
+		
+		JLabel passwordLabel = new JLabel("Password");
+		passwordLabel.setPreferredSize(serverIPLabel.getPreferredSize());
 		
 		final JPasswordField password = new JPasswordField(20);
 		password.setEchoChar((char) 8226);
@@ -45,7 +57,7 @@ public class LoginPanel extends JPanel{
 
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					mainFrame.connection = new ClientConnection();
+					mainFrame.connection = new ClientConnection(serverIP.getText());
 					String pass = new String(password.getPassword());
 					if (!username.getText().matches("[a-zA-Z0-9]+") || !pass.matches("[a-zA-Z0-9]+")) {
 						mainFrame.messageDialog.showMessage("Invalid username/password!", true);
@@ -60,7 +72,9 @@ public class LoginPanel extends JPanel{
 						mainFrame.messageDialog.showMessage("There's no current voting session!", true);
 						return;
 					}
-					mainFrame.switchToCandidatesPanel();
+					mainFrame.switchTo(new CandidatesPanel(mainFrame, new Point(0, 0)));
+				} catch (UnknownHostException ex) {
+					mainFrame.messageDialog.showMessage("The IP address of the server cannot be resolved!", true);
 				} catch (Exception ex) {
 					mainFrame.messageDialog.showMessage("Couldn't connect to server!", true);
 				}
@@ -73,30 +87,36 @@ public class LoginPanel extends JPanel{
 		register.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
-				mainFrame.switchToRegisterPanel();
+				mainFrame.switchTo(new RegisterPanel(mainFrame, username, serverIP));
 			}
 			
 		});
 		
 		JPanel usernamePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
-		usernamePanel.add(new JLabel("Username"));
+		usernamePanel.add(usernameLabel);
 		usernamePanel.add(username);
 		usernamePanel.setOpaque(false);
 		
 		JPanel passwordPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
-		passwordPanel.add(new JLabel("Password"));
+		passwordPanel.add(passwordLabel);
 		passwordPanel.add(password);
 		passwordPanel.setOpaque(false);
+		
+		JPanel serverIPPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
+		serverIPPanel.add(serverIPLabel);
+		serverIPPanel.add(serverIP);
+		serverIPPanel.setOpaque(false);
 		
 		JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
 		buttonsPanel.add(login);
 		buttonsPanel.add(register);
 		buttonsPanel.setOpaque(false);
 		
-		JPanel loginPanel = new JPanel(new GridLayout(4, 1, 0, 5));
+		JPanel loginPanel = new JPanel(new GridLayout(5, 1, 0, 5));
 		loginPanel.add(loginLabel);
 		loginPanel.add(usernamePanel);
 		loginPanel.add(passwordPanel);
+		loginPanel.add(serverIPPanel);
 		loginPanel.add(buttonsPanel);
 		loginPanel.setOpaque(false);
 		loginPanel.setBorder(BorderFactory.createCompoundBorder(new LineBorder(new Color(191, 230, 249).darker()), BorderFactory.createEmptyBorder(10, 10, 10, 10)));

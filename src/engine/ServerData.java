@@ -50,7 +50,8 @@ public class ServerData {
 		if (!usersLines.isEmpty()) {
 			for (String line : usersLines) {
 				String[] user = line.split(",");
-				users.put(user[0], new User(user[0], user[1], user[2].equals("-") ? null : user[2]));
+				String winner = user[2].equals("-") ? null : user[2];
+				users.put(user[0], new User(user[0], user[1], winner));
 			}
 		}
 		
@@ -81,8 +82,9 @@ public class ServerData {
 	public void saveAllData() throws Exception {
 		PrintWriter writer = new PrintWriter("users.txt");
 		for (Map.Entry<String, User> entry : users.entrySet()) {
+			String pass = entry.getValue().getPassword();
 			String vote = entry.getValue().getVote() == null ? "-" : entry.getValue().getVote();
-			writer.println(entry.getKey() + "," + entry.getValue().getPassword() + "," + vote);
+			writer.println(entry.getKey() + "," + pass + "," + vote);
 		}
 		writer.close();
 		
@@ -125,7 +127,7 @@ public class ServerData {
 	public synchronized boolean addUser(String username, String password) {
 		if (users.containsKey(username))
 			return false;
-
+		
 		users.put(username, new User(username, password));
 		return true;
 	}

@@ -26,7 +26,7 @@ public class VoteButton extends JButton {
 					mainFrame.connection.voteFor(mainFrame.connection.getCandidates().get(index).getName());
 					mainFrame.refreshCandidatesPanel();
 				} catch (Exception ex) {
-					mainFrame.switchToLoginPanel();
+					mainFrame.switchTo(new LoginPanel(mainFrame));
 					mainFrame.messageDialog.showMessage("Couldn't connect to server!", true);
 				}
 			}

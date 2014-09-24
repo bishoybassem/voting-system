@@ -28,8 +28,6 @@ import gui.MessageDialog;
 public class ClientInterface extends JFrame{
 	
 	public ClientConnection connection;
-	private boolean isCandidatesPanel;
-	private CandidatesPanel candidatesPanel;
 	
 	private JPanel mainPanel;
 	private Timer refreshTimer;
@@ -58,9 +56,7 @@ public class ClientInterface extends JFrame{
 		refreshTimer = new Timer(5000, new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
-				if (isCandidatesPanel) {
-					refreshCandidatesPanel();
-				}
+				refreshCandidatesPanel();
 			}
 			
 		});
@@ -116,39 +112,25 @@ public class ClientInterface extends JFrame{
 		
 		refreshTimer.start();
 	}
-	
-	public void switchToRegisterPanel() {
-		isCandidatesPanel = false;
-		candidatesPanel = null;
-		mainPanel.removeAll();
-		mainPanel.add(new RegisterPanel(this));
-		pack();
-	}
-	
-	public void switchToLoginPanel() {
-		isCandidatesPanel = false;
-		candidatesPanel = null;
-		mainPanel.removeAll();
-		mainPanel.add(new LoginPanel(this));
-		pack();
-	}
-	
-	public void switchToCandidatesPanel() {
-		isCandidatesPanel = true;
-		candidatesPanel = new CandidatesPanel(this, (candidatesPanel == null)? new Point(0, 0) : candidatesPanel.getViewPoint());
-		mainPanel.removeAll();
-		mainPanel.add(candidatesPanel);
-		pack();
-	}
-	
+
 	public void refreshCandidatesPanel() {
+		if (!(mainPanel.getComponent(0) instanceof CandidatesPanel))
+			return;
+		
+		Point viewPoint = ((CandidatesPanel)mainPanel.getComponent(0)).getViewPoint();
 		try {
 			connection.refresh();
-			switchToCandidatesPanel();
+			switchTo(new CandidatesPanel(this, viewPoint));
 		} catch (Exception ex) {
 			messageDialog.showMessage("Couldn't connect to server!", true);
-			switchToLoginPanel();
+			switchTo(new LoginPanel(this));
 		}
+	}
+	
+	public void switchTo(JPanel panel) {
+		mainPanel.removeAll();
+		mainPanel.add(panel);
+		pack();
 	}
 	
 	public static void main(String[] args) {

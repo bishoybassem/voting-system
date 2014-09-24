@@ -12,6 +12,8 @@ public class ServerConnection implements Runnable {
 	private BufferedReader inFromClient;
 	private PrintWriter outToClient;
 
+	public static final int PORT = 6000;
+	
 	public ServerConnection(Socket socket, ServerData serverData) throws Exception {
 		this.socket = socket;
 		this.serverData = serverData;
