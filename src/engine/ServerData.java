@@ -51,7 +51,7 @@ public class ServerData {
 			for (String line : usersLines) {
 				String[] user = line.split(",");
 				String winner = user[2].equals("-") ? null : user[2];
-				users.put(user[0], new User(user[0], user[1], winner));
+				users.put(user[0], new User(user[0], user[1], user[3], winner));
 			}
 		}
 		
@@ -84,7 +84,8 @@ public class ServerData {
 		for (Map.Entry<String, User> entry : users.entrySet()) {
 			String pass = entry.getValue().getPassword();
 			String vote = entry.getValue().getVote() == null ? "-" : entry.getValue().getVote();
-			writer.println(entry.getKey() + "," + pass + "," + vote);
+			String addr = entry.getValue().getMACAddress();
+			writer.println(entry.getKey() + "," + pass + "," + vote + "," + addr);
 		}
 		writer.close();
 		
@@ -124,11 +125,16 @@ public class ServerData {
 		return Status.NOT_REGISTERED;
 	}
 		
-	public synchronized boolean addUser(String username, String password) {
+	public synchronized boolean addUser(String username, String password, String MACAddress) {
 		if (users.containsKey(username))
 			return false;
 		
-		users.put(username, new User(username, password));
+		for (User user : users.values()) {
+			if (user.getMACAddress().equals(MACAddress))
+				return false;
+		}
+		
+		users.put(username, new User(username, password, MACAddress));
 		return true;
 	}
 
@@ -189,8 +195,10 @@ public class ServerData {
 			winner = candidatesList.get(0).getName();
 		} else {
 			TreeMap<String, Candidate> newCandidates = new TreeMap<String, Candidate>();
+			candidatesList.get(0).resetVotes();
 			newCandidates.put(candidatesList.get(0).getName(), candidatesList.get(0));
 			for (Candidate candidate : ties) {
+				candidate.resetVotes();
 				newCandidates.put(candidate.getName(), candidate);
 			}
 			newSession(newCandidates, endDate, new Date(2 * endDate.getTime() - startDate.getTime()));

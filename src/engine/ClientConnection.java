@@ -3,6 +3,8 @@ package engine;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,7 +47,7 @@ public class ClientConnection {
 	}
 	
 	public boolean register(String username, String password) throws Exception {
-		return Boolean.parseBoolean(send("Register:" + username + "-" + password));
+		return Boolean.parseBoolean(send("Register:" + username + "-" + password + "-" + getMACAddress()));
 	}
 		
 	private String send(String text) throws Exception {
@@ -122,5 +124,20 @@ public class ClientConnection {
 	public String getEndDate() {
 		return ServerData.formatter.format(endDate);
 	}
-		
+	
+	public static String getMACAddress() {
+		try {
+			NetworkInterface network = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
+			byte[] mac = network.getHardwareAddress();
+
+			String address = "";
+			for (int i = 0; i < mac.length; i++) {
+				address += String.format("%02X", mac[i]) + (i < mac.length - 1 ? ":" : "");		
+			}
+			return address;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
 }

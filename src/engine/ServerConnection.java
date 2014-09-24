@@ -30,7 +30,7 @@ public class ServerConnection implements Runnable {
 					outToClient.println(serverData.getUserStatus(text[0], text[1]).ordinal());
 				} else if (s.startsWith("Register:")){
 					String[] text = s.substring(9).split("-");
-					outToClient.println(serverData.addUser(text[0], text[1]));
+					outToClient.println(serverData.addUser(text[0], text[1], text[2]));
 				} else if (s.startsWith("Vote:")){
 					String[] text = s.substring(5).split("-");
 					outToClient.println(serverData.vote(text[0], text[1]));

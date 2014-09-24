@@ -4,15 +4,21 @@ public class User {
 
 	private String username;
 	private String password;
+	private String MACAddress;
 	private String vote;
 	
 	public User(String username, String password) {
 		this(username, password, null);
 	}
 	
-	public User(String username, String password, String vote) {
+	public User(String username, String password, String MACAddress) {
+		this(username, password, MACAddress, null);
+	}
+	
+	public User(String username, String password, String MACAddress, String vote) {
 		this.username = username;
 		this.password = password;
+		this.MACAddress = MACAddress;
 		this.vote = vote;
 	}
 
@@ -30,6 +36,10 @@ public class User {
 
 	public String getPassword() {
 		return password;
+	}
+	
+	public String getMACAddress() {
+		return MACAddress;
 	}
 	
 }

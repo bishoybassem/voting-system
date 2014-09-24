@@ -18,6 +18,10 @@ public class Candidate implements Comparable<Candidate> {
 		return votes;
 	}
 	
+	public void resetVotes() {
+		votes = 0;
+	}
+	
 	public void incrementVotes() {
 		votes++;
 	}
