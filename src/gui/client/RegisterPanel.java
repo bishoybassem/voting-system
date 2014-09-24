@@ -10,12 +10,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.UnknownHostException;
 
+import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.border.LineBorder;
 
 import engine.ClientConnection;
@@ -24,9 +26,15 @@ import engine.ClientConnection;
 public class RegisterPanel extends JPanel{
 	
 	private ClientInterface mainFrame;
+	private JTextField username;
+	private JTextField serverIP;
+	private JPasswordField password;
+	private JPasswordField confirm;
 	
-	public RegisterPanel(ClientInterface clientInterface, final JTextField username, final JTextField serverIP) {
+	public RegisterPanel(ClientInterface clientInterface, JTextField name, JTextField ip) {
 		mainFrame = clientInterface;
+		this.username = name;
+		this.serverIP = ip;
 		
 		setLayout(new GridBagLayout());
 		setOpaque(false);
@@ -45,44 +53,52 @@ public class RegisterPanel extends JPanel{
 		JLabel serverIPLabel = new JLabel("Server IP");
 		serverIPLabel.setPreferredSize(confirmLabel.getPreferredSize());
 		
-		final JPasswordField password = new JPasswordField(20);
-		password.setEchoChar((char) 8226);
-		
-		final JPasswordField confirm = new JPasswordField(20);
-		confirm.setEchoChar((char) 8226);
+		username.getInputMap().put(KeyStroke.getKeyStroke("ENTER"), "Register");
+		username.getActionMap().put("Register", new AbstractAction(){
 
+			public void actionPerformed(ActionEvent e) {
+				register();
+			}
+			
+		});
+		
+		serverIP.getInputMap().put(KeyStroke.getKeyStroke("ENTER"), "Register");
+		serverIP.getActionMap().put("Register", new AbstractAction(){
+
+			public void actionPerformed(ActionEvent e) {
+				register();
+			}
+			
+		});
+		
+		password = new JPasswordField(20);
+		password.setEchoChar((char) 8226);
+		password.getInputMap().put(KeyStroke.getKeyStroke("ENTER"), "Register");
+		password.getActionMap().put("Register", new AbstractAction(){
+
+			public void actionPerformed(ActionEvent e) {
+				register();
+			}
+			
+		});
+		
+		confirm = new JPasswordField(20);
+		confirm.setEchoChar((char) 8226);
+		confirm.getInputMap().put(KeyStroke.getKeyStroke("ENTER"), "Register");
+		confirm.getActionMap().put("Register", new AbstractAction(){
+
+			public void actionPerformed(ActionEvent e) {
+				register();
+			}
+			
+		});
+		
 		JButton register = new JButton("Register");
 		register.setFocusable(false);
 		register.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					String pass = new String(password.getPassword());
-					String con = new String(confirm.getPassword());
-					if (!username.getText().matches("[a-zA-Z0-9]+") || !pass.matches("[a-zA-Z0-9]+")) {
-						mainFrame.messageDialog.showMessage("Invalid username/password\nOnly letters and digits are allowed!", true);
-						return;
-					}
-					if (!(pass.length() > 5)) {
-						mainFrame.messageDialog.showMessage("Password must be at least 6 characters!", true);
-						return;
-					}
-					if (!pass.equals(con)) {
-						mainFrame.messageDialog.showMessage("Passwords do not match!", true);
-						return;
-					}
-					mainFrame.connection = new ClientConnection(serverIP.getText());
-					if (!mainFrame.connection.register(username.getText(), pass)) {
-						mainFrame.messageDialog.showMessage("This username/machine is already registered!", true);
-					} else {
-						mainFrame.messageDialog.showMessage("You have been successfully registered!", false);
-						mainFrame.switchTo(new LoginPanel(mainFrame, username, serverIP));
-					}
-				} catch (UnknownHostException ex) {
-					mainFrame.messageDialog.showMessage("The IP address of the server cannot be resolved!", true);
-				} catch (Exception ex) {
-					mainFrame.messageDialog.showMessage("Couldn't connect to server!", true);
-				}
+				register();
 			}
 			
 		});
@@ -133,6 +149,36 @@ public class RegisterPanel extends JPanel{
 		registerPanel.setOpaque(false);
 
 		add(registerPanel);
+	}
+	
+	private void register() {
+		try {
+			String pass = new String(password.getPassword());
+			String con = new String(confirm.getPassword());
+			if (!username.getText().matches("[a-zA-Z0-9]+") || !pass.matches("[a-zA-Z0-9]+")) {
+				mainFrame.messageDialog.showMessage("Invalid username/password\nOnly letters and digits are allowed!", true);
+				return;
+			}
+			if (!(pass.length() > 5)) {
+				mainFrame.messageDialog.showMessage("Password must be at least 6 characters!", true);
+				return;
+			}
+			if (!pass.equals(con)) {
+				mainFrame.messageDialog.showMessage("Passwords do not match!", true);
+				return;
+			}
+			mainFrame.connection = new ClientConnection(serverIP.getText());
+			if (!mainFrame.connection.register(username.getText(), pass)) {
+				mainFrame.messageDialog.showMessage("This username/machine is already registered!", true);
+			} else {
+				mainFrame.messageDialog.showMessage("You have been successfully registered!", false);
+				mainFrame.switchTo(new LoginPanel(mainFrame, username, serverIP));
+			}
+		} catch (UnknownHostException ex) {
+			mainFrame.messageDialog.showMessage("The IP address of the server cannot be resolved!", true);
+		} catch (Exception ex) {
+			mainFrame.messageDialog.showMessage("Couldn't connect to server!", true);
+		}
 	}
 	
 	public Dimension getPreferredSize() {
