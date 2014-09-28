@@ -37,7 +37,7 @@ public class MessageDialog extends JDialog {
 	}
 	
 	public MessageDialog(JFrame main) {
-		super(main, "Message", true);
+		super(main, true);
 		
 		image = new JLabel();
 		
@@ -105,6 +105,7 @@ public class MessageDialog extends JDialog {
 	}
 	
 	public void showAbout() {
+		setTitle("About");
 		image.setIcon(new ImageIcon(getClass().getResource("resources/hand2.png")));
 		text.setText(aboutText);
 		pack();
@@ -113,6 +114,7 @@ public class MessageDialog extends JDialog {
 	}
 	
 	public void showMessage(String message, boolean isError) {
+		setTitle(isError ? "Error" : "Message");
 		image.setIcon(new ImageIcon(getClass().getResource("resources/" + (isError? "error" : "success") + ".png")));
 		text.setText(message);
 		pack();
