@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -48,6 +47,10 @@ public class ClientInterface extends JFrame{
 		UIManager.put("TextField.font", new Font("Consolas", Font.PLAIN, 18));
 		UIManager.put("TextArea.font", new Font("Consolas", Font.PLAIN, 18));
 		UIManager.put("PasswordField.font", new Font("Consolas", Font.PLAIN, 18));
+		
+		ImageIcon icon1 = new ImageIcon(getClass().getClassLoader().getResource("gui/resources/hand1.png"));
+		ImageIcon icon2 = new ImageIcon(getClass().getClassLoader().getResource("gui/resources/hand2.png"));
+		setIconImages(Arrays.asList(icon1.getImage(), icon2.getImage()));
 		
 		messageDialog = new MessageDialog(this);
 		
@@ -100,13 +103,9 @@ public class ClientInterface extends JFrame{
 
 		});
 		
-		ImageIcon icon1 = new ImageIcon(getClass().getClassLoader().getResource("gui/resources/hand1.png"));
-		ImageIcon icon2 = new ImageIcon(getClass().getClassLoader().getResource("gui/resources/hand2.png"));
-		
 		add(mainPanel);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setIconImages(Arrays.asList(new Image[]{icon1.getImage(), icon2.getImage()}));
 		pack();
 		setLocationRelativeTo(null);
 		

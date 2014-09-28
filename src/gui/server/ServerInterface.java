@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -51,6 +50,10 @@ public class ServerInterface extends JFrame{
 		UIManager.put("TextField.font", new Font("Consolas", Font.PLAIN, 18));
 		UIManager.put("TextArea.font", new Font("Consolas", Font.PLAIN, 18));
 		UIManager.put("ComboBox.font", new Font("Consolas", Font.PLAIN, 18));
+		
+		ImageIcon icon1 = new ImageIcon(getClass().getClassLoader().getResource("gui/resources/hand1.png"));
+		ImageIcon icon2 = new ImageIcon(getClass().getClassLoader().getResource("gui/resources/hand2.png"));
+		setIconImages(Arrays.asList(icon1.getImage(), icon2.getImage()));
 		
 		serverData = new ServerData();
 		windowSize = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 200);
@@ -118,12 +121,8 @@ public class ServerInterface extends JFrame{
 		add(mainPanel);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		ImageIcon icon1 = new ImageIcon(getClass().getClassLoader().getResource("gui/resources/hand1.png"));
-		ImageIcon icon2 = new ImageIcon(getClass().getClassLoader().getResource("gui/resources/hand2.png"));
-		
+
 		switchTo(new SessionPanel(this));
-		setIconImages(Arrays.asList(new Image[]{icon1.getImage(), icon2.getImage()}));
 		setLocationRelativeTo(null);
 		
 		refreshTimer.start();
