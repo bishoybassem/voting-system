@@ -30,10 +30,10 @@ public class MessageDialog extends JDialog {
 	private JTextArea text;
 	private JLabel image;
 	
-	private static final String aboutText;
+	private static final String ABOUT_TEXT;
 	
 	static {
-		aboutText = readTextFile("resources/about.txt");
+		ABOUT_TEXT = readTextFile("resources/about.txt");
 	}
 	
 	public MessageDialog(JFrame main) {
@@ -107,7 +107,7 @@ public class MessageDialog extends JDialog {
 	public void showAbout() {
 		setTitle("About");
 		image.setIcon(new ImageIcon(getClass().getResource("resources/hand2.png")));
-		text.setText(aboutText);
+		text.setText(ABOUT_TEXT);
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);

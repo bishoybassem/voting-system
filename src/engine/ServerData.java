@@ -24,7 +24,7 @@ public class ServerData {
 	private Date endDate;
 	private Timer winnerTimer;
 	
-	public static final SimpleDateFormat formatter = new SimpleDateFormat("dd/MMM/yyyy hh:mm a");
+	public static final SimpleDateFormat FORMATTER = new SimpleDateFormat("dd/MMM/yyyy hh:mm a");
 	
 	public ServerData() throws Exception {
 		loadAllData();
@@ -66,8 +66,8 @@ public class ServerData {
 		
 		ArrayList<String> sessionLines = readTextLines("session.txt");
 		if (!sessionLines.isEmpty()) {
-			startDate = formatter.parse(sessionLines.get(0));
-			endDate = formatter.parse(sessionLines.get(1));
+			startDate = FORMATTER.parse(sessionLines.get(0));
+			endDate = FORMATTER.parse(sessionLines.get(1));
 			if (sessionLines.size() > 2) {
 				winner = sessionLines.get(2);
 				System.out.println("-" + winner + "-");
@@ -99,8 +99,8 @@ public class ServerData {
 			return;
 		
 		writer = new PrintWriter("session.txt");
-		writer.println(formatter.format(startDate));
-		writer.println(formatter.format(endDate));
+		writer.println(FORMATTER.format(startDate));
+		writer.println(FORMATTER.format(endDate));
 		if (winner != null) {
 			writer.println(winner);
 		}
@@ -173,11 +173,11 @@ public class ServerData {
 	}
 	
 	public synchronized String getEndDate() {
-		return formatter.format(endDate);
+		return FORMATTER.format(endDate);
 	}
 	
 	public synchronized String getStartDate() {
-		return formatter.format(startDate);
+		return FORMATTER.format(startDate);
 	}
 	
 	private void selectWinner() {

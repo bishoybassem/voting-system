@@ -31,8 +31,12 @@ public class ClientInterface extends JFrame{
 	private JPanel mainPanel;
 	private Timer refreshTimer;
 	
-	public final int windowSize;
-	public final MessageDialog messageDialog;
+	public MessageDialog messageDialog;
+	public static final int WINDOW_SIZE;
+	
+	static {
+		WINDOW_SIZE = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 200);
+	}
 	
 	public ClientInterface() {
 		super("Voting System - Client");
@@ -53,9 +57,7 @@ public class ClientInterface extends JFrame{
 		setIconImages(Arrays.asList(icon1.getImage(), icon2.getImage()));
 		
 		messageDialog = new MessageDialog(this);
-		
-		windowSize = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 200);
-				
+						
 		refreshTimer = new Timer(5000, new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {

@@ -66,11 +66,11 @@ public class ClientConnection {
 	}
 
 	private void retrieveStartDate() throws Exception {
-		startDate = ServerData.formatter.parse(send("GetStartDate"));
+		startDate = ServerData.FORMATTER.parse(send("GetStartDate"));
 	}
 	
 	private void retrieveEndDate() throws Exception {
-		endDate = ServerData.formatter.parse(send("GetEndDate"));
+		endDate = ServerData.FORMATTER.parse(send("GetEndDate"));
 	}
 	
 	private void retrieveVote() throws Exception {
@@ -118,11 +118,11 @@ public class ClientConnection {
 	}
 
 	public String getStartDate() {
-		return ServerData.formatter.format(startDate);
+		return ServerData.FORMATTER.format(startDate);
 	}
 
 	public String getEndDate() {
-		return ServerData.formatter.format(endDate);
+		return ServerData.FORMATTER.format(endDate);
 	}
 	
 	public static String getMACAddress() {
