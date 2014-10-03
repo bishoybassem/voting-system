@@ -34,8 +34,12 @@ public class ServerInterface extends JFrame{
 	private Timer refreshTimer;
 	private Timer saveTimer;
 
-	public final int windowSize;
-	public final MessageDialog messageDialog;
+	public MessageDialog messageDialog;
+	public static final int WINDOW_SIZE;
+	
+	static {
+		WINDOW_SIZE = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 200);
+	}
 	
 	public ServerInterface() throws Exception {
 		super("Voting System - Server");
@@ -56,7 +60,6 @@ public class ServerInterface extends JFrame{
 		setIconImages(Arrays.asList(icon1.getImage(), icon2.getImage()));
 		
 		serverData = new ServerData();
-		windowSize = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 200);
 		messageDialog = new MessageDialog(this);
 
 		refreshTimer = new Timer(5000, new ActionListener() {

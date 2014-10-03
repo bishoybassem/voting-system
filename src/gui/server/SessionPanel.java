@@ -202,7 +202,7 @@ public class SessionPanel extends JPanel {
 	}
 	
 	public Dimension getPreferredSize() {
-		return new Dimension(mainFrame.windowSize, mainFrame.windowSize);
+		return new Dimension(ServerInterface.WINDOW_SIZE, ServerInterface.WINDOW_SIZE);
 	}
 	
 }
